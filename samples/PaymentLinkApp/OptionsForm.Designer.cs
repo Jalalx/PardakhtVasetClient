@@ -48,13 +48,14 @@
             // 
             // btnCheckApiKey
             // 
-            this.btnCheckApiKey.Location = new System.Drawing.Point(359, 71);
+            this.btnCheckApiKey.Location = new System.Drawing.Point(359, 64);
             this.btnCheckApiKey.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnCheckApiKey.Name = "btnCheckApiKey";
             this.btnCheckApiKey.Size = new System.Drawing.Size(139, 30);
             this.btnCheckApiKey.TabIndex = 4;
             this.btnCheckApiKey.Text = "برسی API Key";
             this.btnCheckApiKey.UseVisualStyleBackColor = true;
+            this.btnCheckApiKey.Click += new System.EventHandler(this.btnCheckApiKey_Click);
             // 
             // txtApiKey
             // 
@@ -76,13 +77,14 @@
             // 
             // btnTestConnectionString
             // 
-            this.btnTestConnectionString.Location = new System.Drawing.Point(358, 163);
+            this.btnTestConnectionString.Location = new System.Drawing.Point(358, 156);
             this.btnTestConnectionString.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnTestConnectionString.Name = "btnTestConnectionString";
             this.btnTestConnectionString.Size = new System.Drawing.Size(139, 30);
             this.btnTestConnectionString.TabIndex = 7;
             this.btnTestConnectionString.Text = "برسی ارتباط";
             this.btnTestConnectionString.UseVisualStyleBackColor = true;
+            this.btnTestConnectionString.Click += new System.EventHandler(this.btnTestConnectionString_Click);
             // 
             // txtConnectionString
             // 
@@ -92,10 +94,11 @@
             this.txtConnectionString.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.txtConnectionString.Size = new System.Drawing.Size(478, 22);
             this.txtConnectionString.TabIndex = 6;
+            this.txtConnectionString.Text = "data source=.;user id=sa;password=12345;";
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(411, 234);
+            this.btnSave.Location = new System.Drawing.Point(412, 212);
             this.btnSave.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(86, 27);
@@ -107,7 +110,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(512, 274);
+            this.ClientSize = new System.Drawing.Size(512, 249);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btnTestConnectionString);
@@ -122,6 +125,7 @@
             this.Name = "OptionsForm";
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.RightToLeftLayout = true;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "تنظیمات";
             this.ResumeLayout(false);
             this.PerformLayout();

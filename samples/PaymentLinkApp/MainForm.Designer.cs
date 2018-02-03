@@ -28,40 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.txtApiKey = new System.Windows.Forms.TextBox();
-            this.btnCheckApiKey = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
             this.paymentLinksGridView = new System.Windows.Forms.DataGridView();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.refreshDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.paymentLinksGridView)).BeginInit();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // txtApiKey
-            // 
-            this.txtApiKey.Location = new System.Drawing.Point(88, 13);
-            this.txtApiKey.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtApiKey.Name = "txtApiKey";
-            this.txtApiKey.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.txtApiKey.Size = new System.Drawing.Size(351, 23);
-            this.txtApiKey.TabIndex = 0;
-            // 
-            // btnCheckApiKey
-            // 
-            this.btnCheckApiKey.Location = new System.Drawing.Point(320, 47);
-            this.btnCheckApiKey.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btnCheckApiKey.Name = "btnCheckApiKey";
-            this.btnCheckApiKey.Size = new System.Drawing.Size(119, 28);
-            this.btnCheckApiKey.TabIndex = 1;
-            this.btnCheckApiKey.Text = "برسی API Key";
-            this.btnCheckApiKey.UseVisualStyleBackColor = true;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(26, 16);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(56, 16);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "API Key:";
             // 
             // paymentLinksGridView
             // 
@@ -69,10 +46,67 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.paymentLinksGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.paymentLinksGridView.Location = new System.Drawing.Point(12, 87);
+            this.paymentLinksGridView.Location = new System.Drawing.Point(12, 55);
             this.paymentLinksGridView.Name = "paymentLinksGridView";
-            this.paymentLinksGridView.Size = new System.Drawing.Size(701, 378);
+            this.paymentLinksGridView.Size = new System.Drawing.Size(701, 410);
             this.paymentLinksGridView.TabIndex = 3;
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem,
+            this.viewToolStripMenuItem,
+            this.toolsToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(725, 24);
+            this.menuStrip1.TabIndex = 4;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.exitToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Text = "File";
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
+            // toolsToolStripMenuItem
+            // 
+            this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.optionsToolStripMenuItem});
+            this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
+            this.toolsToolStripMenuItem.Text = "Tools";
+            // 
+            // optionsToolStripMenuItem
+            // 
+            this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.optionsToolStripMenuItem.Text = "Options";
+            this.optionsToolStripMenuItem.Click += new System.EventHandler(this.optionsToolStripMenuItem_Click);
+            // 
+            // viewToolStripMenuItem
+            // 
+            this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.refreshDataToolStripMenuItem});
+            this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.viewToolStripMenuItem.Text = "View";
+            // 
+            // refreshDataToolStripMenuItem
+            // 
+            this.refreshDataToolStripMenuItem.Name = "refreshDataToolStripMenuItem";
+            this.refreshDataToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.refreshDataToolStripMenuItem.Text = "Refresh Data";
+            this.refreshDataToolStripMenuItem.Click += new System.EventHandler(this.refreshDataToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -80,27 +114,32 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(725, 477);
             this.Controls.Add(this.paymentLinksGridView);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.btnCheckApiKey);
-            this.Controls.Add(this.txtApiKey);
+            this.Controls.Add(this.menuStrip1);
             this.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
+            this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "MainForm";
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.RightToLeftLayout = true;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "پرداخت واسط";
             ((System.ComponentModel.ISupportInitialize)(this.paymentLinksGridView)).EndInit();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.TextBox txtApiKey;
-        private System.Windows.Forms.Button btnCheckApiKey;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView paymentLinksGridView;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem refreshDataToolStripMenuItem;
     }
 }
 

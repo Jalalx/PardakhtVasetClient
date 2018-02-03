@@ -49,11 +49,13 @@
     <Compile Include="DapperDbCommandExecutor.cs" />
     <Compile Include="IDbCommandExecutor.cs" />
     <Compile Include="IDbInitializer.cs" />
+    <Compile Include="IPardakhtVasetClient.cs" />
     <Compile Include="ITimerService.cs" />
     <Compile Include="PardakhtVasetClient.cs" />
     <Compile Include="PardakhtVasetClientOptions.cs" />
     <Compile Include="PaymentLink.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Reference.cs" />
     <Compile Include="SqlServerDbInitializer.cs" />
     <Compile Include="Properties\ScriptResources.Designer.cs">
       <AutoGen>True</AutoGen>

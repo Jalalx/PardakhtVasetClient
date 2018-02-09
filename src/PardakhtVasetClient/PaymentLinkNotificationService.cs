@@ -39,6 +39,7 @@ namespace Septa.PardakhtVaset.Client
                     e.Token = nextPaymentLink.Token;
                     e.FollowId = nextPaymentLink.FollowId;
                     e.Status = result.RequestStatus;
+                    e.ResultDate = result.VerifyDate;
 
                     nextPaymentLink.BankReferenceId = result.BankReferenceId;
                     nextPaymentLink.ResultDate = result.VerifyDate;

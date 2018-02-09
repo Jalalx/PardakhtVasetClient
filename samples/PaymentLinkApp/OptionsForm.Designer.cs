@@ -30,11 +30,11 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.btnCheckApiKey = new System.Windows.Forms.Button();
-            this.txtApiKey = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.btnTestConnectionString = new System.Windows.Forms.Button();
-            this.txtConnectionString = new System.Windows.Forms.TextBox();
             this.btnSave = new System.Windows.Forms.Button();
+            this.txtConnectionString = new System.Windows.Forms.TextBox();
+            this.txtApiKey = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label1
@@ -57,15 +57,6 @@
             this.btnCheckApiKey.UseVisualStyleBackColor = true;
             this.btnCheckApiKey.Click += new System.EventHandler(this.btnCheckApiKey_Click);
             // 
-            // txtApiKey
-            // 
-            this.txtApiKey.Location = new System.Drawing.Point(19, 34);
-            this.txtApiKey.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtApiKey.Name = "txtApiKey";
-            this.txtApiKey.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.txtApiKey.Size = new System.Drawing.Size(479, 22);
-            this.txtApiKey.TabIndex = 3;
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -86,31 +77,46 @@
             this.btnTestConnectionString.UseVisualStyleBackColor = true;
             this.btnTestConnectionString.Click += new System.EventHandler(this.btnTestConnectionString_Click);
             // 
-            // txtConnectionString
-            // 
-            this.txtConnectionString.Location = new System.Drawing.Point(19, 126);
-            this.txtConnectionString.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtConnectionString.Name = "txtConnectionString";
-            this.txtConnectionString.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.txtConnectionString.Size = new System.Drawing.Size(478, 22);
-            this.txtConnectionString.TabIndex = 6;
-            this.txtConnectionString.Text = "data source=.;user id=sa;password=12345;";
-            // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(412, 212);
+            this.btnSave.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.btnSave.Location = new System.Drawing.Point(412, 227);
             this.btnSave.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(86, 27);
             this.btnSave.TabIndex = 9;
             this.btnSave.Text = "ذخیره";
             this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
+            // txtConnectionString
+            // 
+            this.txtConnectionString.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::PaymentLinkApp.Properties.Settings.Default, "ConnectionString", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.txtConnectionString.Location = new System.Drawing.Point(19, 126);
+            this.txtConnectionString.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtConnectionString.Name = "txtConnectionString";
+            this.txtConnectionString.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.txtConnectionString.Size = new System.Drawing.Size(478, 22);
+            this.txtConnectionString.TabIndex = 6;
+            this.txtConnectionString.Text = global::PaymentLinkApp.Properties.Settings.Default.ConnectionString;
+            // 
+            // txtApiKey
+            // 
+            this.txtApiKey.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::PaymentLinkApp.Properties.Settings.Default, "ApiKey", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.txtApiKey.Location = new System.Drawing.Point(19, 34);
+            this.txtApiKey.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtApiKey.Name = "txtApiKey";
+            this.txtApiKey.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.txtApiKey.Size = new System.Drawing.Size(479, 22);
+            this.txtApiKey.TabIndex = 3;
+            this.txtApiKey.Text = global::PaymentLinkApp.Properties.Settings.Default.ApiKey;
             // 
             // OptionsForm
             // 
+            this.AcceptButton = this.btnSave;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(512, 249);
+            this.ClientSize = new System.Drawing.Size(512, 265);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btnTestConnectionString);
@@ -127,6 +133,7 @@
             this.RightToLeftLayout = true;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "تنظیمات";
+            this.Load += new System.EventHandler(this.OptionsForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

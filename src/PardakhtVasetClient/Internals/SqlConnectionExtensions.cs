@@ -24,6 +24,26 @@ namespace Septa.PardakhtVaset.Client.Internals
             }
         }
 
+        public static object ExecuteScalar(this SqlConnection connection, string sql, object args = null)
+        {
+            var parser = new ObjectParser();
+            using (var command = connection.CreateCommand())
+            {
+                command.CommandText = sql;
+                foreach (var param in parser.ParseArgs(args))
+                {
+                    var key = ParseKey(param);
+                    command.Parameters.AddWithValue(key, param.Value);
+                }
+
+                if (connection.State != System.Data.ConnectionState.Open)
+                    connection.Open();
+
+                return command.ExecuteScalar();
+            }
+        }
+
+
         public static IEnumerable<T> Query<T>(this SqlConnection connection, string query, object args = null) where T : class, new()
         {
             var result = new List<T>();

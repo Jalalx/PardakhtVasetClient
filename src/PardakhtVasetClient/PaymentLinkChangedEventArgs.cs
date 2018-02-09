@@ -15,6 +15,8 @@ namespace Septa.PardakhtVaset.Client
 
         public string Token { get; set; }
 
+        public DateTime? ResultDate { get; set; }
+
         public RequestStatus Status { get; set; }
     }
 }

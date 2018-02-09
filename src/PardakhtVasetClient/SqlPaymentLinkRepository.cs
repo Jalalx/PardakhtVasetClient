@@ -72,7 +72,15 @@ namespace Septa.PardakhtVaset.Client
             total = 0;
             using (var connection = CreateConnection())
             {
-                var query = $"SELECT ROWNUMBER(), p.* FROM {PaymentLinkTableName} AS p";
+                var countObj = connection.ExecuteScalar($"SELECT COUNT(1) FROM {PaymentLinkTableName};");
+                total = Convert.ToInt32(countObj);
+
+                var query = $@"
+                    SELECT ROW_NUMBER() OVER(ORDER BY CreateDate DESC) RowNumber, p.* 
+                    FROM {PaymentLinkTableName} p
+                    WHERE p.RowNumber > (@PageIndex * @PageSize) AND p.RowNumber <= ((@PageIndex + 1) * @PageSize)
+                    ORDER BY p.CreateDate".Trim();
+                var args = new { PageIndex = pageIndex, PageSize = pageSize };
 
                 return connection.Query<PaymentLink>(query);
             }

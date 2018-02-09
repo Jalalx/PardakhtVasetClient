@@ -20,15 +20,22 @@ namespace Septa.PardakhtVaset.Client
             DbInitializer = dbInitializer ?? throw new ArgumentNullException(nameof(dbInitializer));
             PaymentLinkRepository = paymentLinkRepository ?? throw new ArgumentNullException(nameof(paymentLinkRepository));
             PayRequestFactory = payRequestFactory ?? throw new ArgumentNullException(nameof(payRequestFactory));
+
+            PaymentLinkNotificationService = new PaymentLinkNotificationService(options, paymentLinkRepository, payRequestFactory.Create());
         }
 
         protected IDbInitializer DbInitializer { get; }
 
-        protected IPaymentLinkRepository PaymentLinkRepository { get; }
+        public IPaymentLinkRepository PaymentLinkRepository { get; }
 
         protected IPayRequestFactory PayRequestFactory { get; }
 
         public PardakhtVasetClientOptions Options { get; }
+
+        public IPaymentLinkNotificationService PaymentLinkNotificationService
+        {
+            get;
+        }
 
         public void Init()
         {
@@ -65,6 +72,8 @@ namespace Septa.PardakhtVaset.Client
                 link.Url = result.PaymentUrl;
                 link.ResultDate = null;
                 link.Id = Guid.NewGuid();
+
+                PaymentLinkRepository.Insert(link);
 
                 return link;
             }

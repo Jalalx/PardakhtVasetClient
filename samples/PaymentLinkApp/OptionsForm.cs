@@ -1,4 +1,5 @@
-﻿using Septa.PardakhtVaset.Client;
+﻿using PaymentLinkApp.Properties;
+using Septa.PardakhtVaset.Client;
 using System;
 using System.Data.SqlClient;
 using System.Windows.Forms;
@@ -49,6 +50,15 @@ namespace PaymentLinkApp
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            Settings.Default.Save();
+        }
+
+        private void OptionsForm_Load(object sender, EventArgs e)
+        {
         }
     }
 }

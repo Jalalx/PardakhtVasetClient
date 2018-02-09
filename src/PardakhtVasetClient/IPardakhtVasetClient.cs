@@ -4,6 +4,12 @@ namespace Septa.PardakhtVaset.Client
 {
     public interface IPardakhtVasetClient
     {
+        IPaymentLinkNotificationService PaymentLinkNotificationService { get; }
+
+        IPaymentLinkRepository PaymentLinkRepository { get; }
+
+        PardakhtVasetClientOptions Options { get; }
+
         void Init();
 
         bool Test(string apiKey);

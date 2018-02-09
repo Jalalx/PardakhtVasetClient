@@ -36,6 +36,9 @@ BEGIN
 	[Token] [nvarchar](50) NOT NULL,
 	[Url] [nvarchar](1000) NOT NULL,
 	[CreateDate] [datetime] NOT NULL DEFAULT GETDATE(),
+    [LastCheckForUpdateDate] [datetime] NOT NULL DEFAULT GETDATE(),
+    [BankReferenceId] nvarchar(100) NULL,
+    [ResultDate] [datetime] NULL,
 	[ExpireDays] [int] NOT NULL DEFAULT 7,
 	[Description] [nvarchar](max) NULL,
 	[PaymentStatus] [int] NOT NULL DEFAULT 0
@@ -46,7 +49,7 @@ END".Trim();
             mockedCommandExecutor.Setup(x => x.Execute(expectedScript, null)).Verifiable();
 
             var dbInitializer = new SqlServerDbInitializer("sample connection string", mockedCommandExecutor.Object);
-            
+
 
             dbInitializer.Init(null);
 

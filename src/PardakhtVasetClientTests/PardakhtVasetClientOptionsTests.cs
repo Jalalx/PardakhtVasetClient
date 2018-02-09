@@ -10,6 +10,7 @@ namespace PardakhtVasetClientTests
         {
             var options = new PardakhtVasetClientOptions();
 
+            Assert.Null(options.ApiKey);
             Assert.Null(options.ConnectionString);
             Assert.Equal("", options.TablePrefix);
         }

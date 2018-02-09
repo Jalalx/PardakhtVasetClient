@@ -43,6 +43,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IPaymentLinkNotificationService.cs" />
+    <Compile Include="IPayRequestFactory.cs" />
+    <Compile Include="PaymentLinkChangedEventArgs.cs" />
+    <Compile Include="PaymentLinkNotificationService.cs" />
+    <Compile Include="PayRequestFactory.cs" />
     <Compile Include="SqlDbCommandExecutor.cs" />
     <Compile Include="IDbCommandExecutor.cs" />
     <Compile Include="IDbInitializer.cs" />
@@ -50,7 +55,6 @@
     <Compile Include="Internals\SqlConnectionExtensions.cs" />
     <Compile Include="IPardakhtVasetClient.cs" />
     <Compile Include="IPaymentLinkRepository.cs" />
-    <Compile Include="ITimerService.cs" />
     <Compile Include="PardakhtVasetClient.cs" />
     <Compile Include="PardakhtVasetClientOptions.cs" />
     <Compile Include="PaymentLink.cs" />

@@ -15,5 +15,7 @@ namespace Septa.PardakhtVaset.Client
         int Update(PaymentLink link);
 
         bool Delete(PaymentLink link);
+
+        PaymentLink GetNextLinkForCheck();
     }
 }

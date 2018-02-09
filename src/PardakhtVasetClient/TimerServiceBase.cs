@@ -3,7 +3,7 @@ using System.Threading;
 
 namespace Septa.PardakhtVaset.Client
 {
-    public abstract class TimerServiceBase : ITimerService, IDisposable
+    public abstract class TimerServiceBase : IDisposable
     {
         private readonly Timer _timer = null;
         private bool _isStarted = false;
@@ -11,9 +11,9 @@ namespace Septa.PardakhtVaset.Client
 
         public bool IsStarted => _isStarted;
 
-        public TimerServiceBase(TimeSpan interval)
+        public TimerServiceBase()
         {
-            _timer = new Timer(InternalTick, null, TimeSpan.Zero, interval);
+            _timer = new Timer(InternalTick, null, 0, 0);
         }
 
         private void InternalTick(object state)
@@ -24,9 +24,9 @@ namespace Septa.PardakhtVaset.Client
             }
         }
 
-        public abstract void OnTick();
+        protected abstract void OnTick();
 
-        public void Start()
+        public void Start(TimeSpan interval)
         {
             if (_isDisposed)
                 throw new InvalidOperationException("Object is disposed.");
@@ -34,7 +34,7 @@ namespace Septa.PardakhtVaset.Client
             if (!_isStarted)
             {
                 _isStarted = true;
-                throw new NotImplementedException();
+                _timer.Change(interval, interval);
             }
         }
 
@@ -46,7 +46,7 @@ namespace Septa.PardakhtVaset.Client
             if (_isStarted)
             {
                 _isStarted = false;
-                throw new NotImplementedException();
+                _timer.Change(0, 0);
             }
         }
 

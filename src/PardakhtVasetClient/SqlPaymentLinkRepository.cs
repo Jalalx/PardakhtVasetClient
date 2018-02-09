@@ -1,4 +1,5 @@
-﻿using Septa.PardakhtVaset.Client.Internals;
+﻿using PardakhtVasetServices;
+using Septa.PardakhtVaset.Client.Internals;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -81,7 +82,7 @@ namespace Septa.PardakhtVaset.Client
         {
             using (var connection = CreateConnection())
             {
-                var sql = $"INSERT INTO {PaymentLinkTableName}(Id, Amount, FollowId, Description, ExpireDays, CreateDate, Url, Token, PaymentStatus)VALUES(@Id, @Amount, @FollowId, @Description, @ExpireDays, @CreateDate, @Url, @Token, @PaymentStatus);";
+                var sql = $"INSERT INTO {PaymentLinkTableName}(Id, Amount, FollowId, Description, ExpireDays, CreateDate, LastCheckForUpdateDate, ResultDate, BankReferenceId, Url, Token, PaymentStatus)VALUES(@Id, @Amount, @FollowId, @Description, @ExpireDays, @CreateDate, @LastCheckForUpdateDate, @ResultDate, @BankReferenceId, @Url, @Token, @PaymentStatus);";
                 return connection.Execute(sql, link);
             }
         }
@@ -90,8 +91,18 @@ namespace Septa.PardakhtVaset.Client
         {
             using (var connection = CreateConnection())
             {
-                var sql = $"UPDATE {PaymentLinkTableName} SET Amount=@Amount, FollowId=@FollowId, Description=@Description, ExpireDays=@ExpireDays, CreateDate=@CreateDate, Url=@Url, Token=@Token, PaymentStatus=@PaymentStatus WHERE Id=@Id;";
+                var sql = $"UPDATE {PaymentLinkTableName} SET Amount=@Amount, FollowId=@FollowId, Description=@Description, ExpireDays=@ExpireDays, CreateDate=@CreateDate, LastCheckForUpdateDate=@LastCheckForUpdateDate, ResultDate=@ResultDate, BankReferenceId=@BankReferenceId, Url=@Url, Token=@Token, PaymentStatus=@PaymentStatus WHERE Id=@Id;";
                 return connection.Execute(sql, link);
+            }
+        }
+
+        public PaymentLink GetNextLinkForCheck()
+        {
+            using (var connection = CreateConnection())
+            {
+                var args = new { Initiated = (int)RequestStatus.Initiated, Viewed = (int)RequestStatus.Viewed };
+                var q = connection.Query<PaymentLink>($"SELECT TOP 1 p.* FROM ${PaymentLinkTableName} AS p WHERE p.[PaymentStatus] = @Initiated OR p.[PaymentStatus] = @Viewed", args);
+                return q.FirstOrDefault();
             }
         }
     }

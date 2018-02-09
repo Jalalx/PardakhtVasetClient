@@ -16,7 +16,7 @@ namespace PardakhtVasetClientTests
         [Fact]
         public void CreateInstance_WithNullParameterForOptionsAndDbInitializer_ThrowsArgumentNullException()
         {
-            var ex = Record.Exception(() => new PardakhtVasetClient(null, null));
+            var ex = Record.Exception(() => new PardakhtVasetClient(null, null, null, null));
             Assert.IsType<ArgumentNullException>(ex);
         }
     }

@@ -10,5 +10,7 @@
         public string TablePrefix { get; set; }
 
         public string ConnectionString { get; set; }
+
+        public string ApiKey { get; set; }
     }
 }

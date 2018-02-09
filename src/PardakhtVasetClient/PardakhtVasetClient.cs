@@ -9,17 +9,24 @@ namespace Septa.PardakhtVaset.Client
     public class PardakhtVasetClient : IPardakhtVasetClient
     {
         public PardakhtVasetClient(PardakhtVasetClientOptions options) :
-            this(options, options == null ? throw new ArgumentNullException(nameof(options)) : new SqlServerDbInitializer(options.ConnectionString))
+            this(options, options == null ? throw new ArgumentNullException(nameof(options)) : new SqlServerDbInitializer(options.ConnectionString),
+                options == null ? throw new ArgumentNullException(nameof(options)) : new SqlPaymentLinkRepository(options), new PayRequestFactory())
         {
         }
 
-        public PardakhtVasetClient(PardakhtVasetClientOptions options, IDbInitializer dbInitializer)
+        public PardakhtVasetClient(PardakhtVasetClientOptions options, IDbInitializer dbInitializer, IPaymentLinkRepository paymentLinkRepository, IPayRequestFactory payRequestFactory)
         {
             Options = options ?? throw new ArgumentNullException(nameof(options));
             DbInitializer = dbInitializer ?? throw new ArgumentNullException(nameof(dbInitializer));
+            PaymentLinkRepository = paymentLinkRepository ?? throw new ArgumentNullException(nameof(paymentLinkRepository));
+            PayRequestFactory = payRequestFactory ?? throw new ArgumentNullException(nameof(payRequestFactory));
         }
 
         protected IDbInitializer DbInitializer { get; }
+
+        protected IPaymentLinkRepository PaymentLinkRepository { get; }
+
+        protected IPayRequestFactory PayRequestFactory { get; }
 
         public PardakhtVasetClientOptions Options { get; }
 
@@ -30,10 +37,41 @@ namespace Septa.PardakhtVaset.Client
 
         public bool Test(string apiKey)
         {
-            var basicHttp = new BasicHttpBinding();
-            basicHttp.Security.Mode = BasicHttpSecurityMode.Transport;
-            var payRequestService = new PayRequestClient(basicHttp, new EndpointAddress("https://service.pardakhtvaset.com/API/PayRequest.svc/IPayRequestSsl"));
-            return payRequestService.Verify(apiKey);
+            return PayRequestFactory.Create().Verify(apiKey);
+        }
+
+        public PaymentLink Create(decimal amount, string followId, string invoiceNumber, DateTime invoiceDate, ushort expireAfterDays, string description)
+        {
+            var service = PayRequestFactory.Create();
+            var request = new EPayRequestModel();
+            request.Amount = amount;
+            request.Description = description;
+            request.ExpiresAfterDays = expireAfterDays;
+            request.InvoiceNumber = invoiceNumber;
+            request.InvoiceDate = invoiceDate;
+            request.IsAutoRedirect = false;
+
+            var result = service.Create(Options.ApiKey, request);
+            if (result.Success)
+            {
+                var link = new PaymentLink();
+                link.Amount = amount;
+                link.Description = description;
+                link.ExpireDays = expireAfterDays;
+                link.FollowId = followId;
+                link.LastCheckForUpdateDate = DateTime.Now;
+                link.PaymentStatus = (int)RequestStatus.Initiated;
+                link.Token = result.RequestToken;
+                link.Url = result.PaymentUrl;
+                link.ResultDate = null;
+                link.Id = Guid.NewGuid();
+
+                return link;
+            }
+            else
+            {
+                throw new InvalidOperationException(result.Message);
+            }
         }
     }
 }

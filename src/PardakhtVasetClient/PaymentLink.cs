@@ -16,6 +16,12 @@ namespace Septa.PardakhtVaset.Client
 
         public DateTime CreateDate { get; set; }
 
+        public DateTime LastCheckForUpdateDate { get; set; }
+        
+        public DateTime? ResultDate { get; set; }
+
+        public string BankReferenceId { get; set; }
+
         public string Url { get; set; }
 
         public string Token { get; set; }

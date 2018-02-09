@@ -1,5 +1,4 @@
-﻿using Septa.PardakhtVaset.Client.Properties;
-using System;
+﻿using System;
 
 namespace Septa.PardakhtVaset.Client
 {
@@ -8,7 +7,7 @@ namespace Septa.PardakhtVaset.Client
         public string ConnectionString { get; }
         public IDbCommandExecutor DbCommandExecutor { get; }
 
-        public SqlServerDbInitializer(string connectionString) : this(connectionString, new DapperDbCommandExecutor(connectionString))
+        public SqlServerDbInitializer(string connectionString) : this(connectionString, new SqlDbCommandExecutor(connectionString))
         {
         }
 
@@ -23,14 +22,28 @@ namespace Septa.PardakhtVaset.Client
             DbCommandExecutor = dbCommandExecutor ?? throw new ArgumentNullException(nameof(dbCommandExecutor));
         }
 
-        public void Init(string schema, string tablePrefix)
+        public void Init(string tablePrefix)
         {
-            if (string.IsNullOrEmpty(schema))
-                throw new ArgumentNullException(nameof(schema), "parameter can not be null or empty.");
+            var script = @"
+IF (NOT EXISTS (SELECT * 
+                 FROM INFORMATION_SCHEMA.TABLES 
+                 WHERE TABLE_SCHEMA = 'dbo' 
+                 AND  TABLE_NAME = '$TABLEPREFIX$PaymentLinks'))
+BEGIN
+    CREATE TABLE [dbo].[$TABLEPREFIX$PaymentLinks](
+	[Id] [uniqueidentifier] NOT NULL PRIMARY KEY DEFAULT NEWID(),
+	[Amount] [decimal](18, 2) NOT NULL,
+	[Token] [nvarchar](50) NOT NULL,
+	[Url] [nvarchar](1000) NOT NULL,
+	[CreateDate] [datetime] NOT NULL DEFAULT GETDATE(),
+	[ExpireDays] [int] NOT NULL DEFAULT 7,
+	[Description] [nvarchar](max) NULL,
+	[PaymentStatus] [int] NOT NULL DEFAULT 0
+ );
+END".Trim();
 
-            var script = ScriptResources.CreatePaymentLinksTableScript
-                .Replace("$SCHEMA$", schema)
-                .Replace("$TABLEPREFIX$", tablePrefix ?? string.Empty);
+            tablePrefix = (tablePrefix ?? string.Empty).Trim();
+            script = script.Replace("$TABLEPREFIX$", tablePrefix);
 
             DbCommandExecutor.Execute(script, null);
         }

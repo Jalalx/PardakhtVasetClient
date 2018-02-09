@@ -1,12 +1,12 @@
-﻿using Dapper;
+﻿using Septa.PardakhtVaset.Client.Internals;
 using System;
 using System.Data.SqlClient;
 
 namespace Septa.PardakhtVaset.Client
 {
-    public class DapperDbCommandExecutor : IDbCommandExecutor
+    public class SqlDbCommandExecutor : IDbCommandExecutor
     {
-        public DapperDbCommandExecutor(string connectionString)
+        public SqlDbCommandExecutor(string connectionString)
         {
             if (string.IsNullOrEmpty(connectionString))
             {

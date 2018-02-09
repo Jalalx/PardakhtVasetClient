@@ -8,6 +8,8 @@ namespace Septa.PardakhtVaset.Client
 
         public decimal Amount { get; set; }
 
+        public string FollowId { get; set; }
+
         public string Description { get; set; }
 
         public int ExpireDays { get; set; }

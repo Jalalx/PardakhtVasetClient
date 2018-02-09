@@ -12,7 +12,6 @@ namespace PardakhtVasetClientTests
 
             Assert.Null(options.ConnectionString);
             Assert.Equal("", options.TablePrefix);
-            Assert.Equal("dbo", options.DefaultSchema);
         }
     }
 }

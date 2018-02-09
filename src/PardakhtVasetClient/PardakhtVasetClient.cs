@@ -1,5 +1,7 @@
 ﻿using PardakhtVasetServices;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.ServiceModel;
 
 namespace Septa.PardakhtVaset.Client
@@ -17,15 +19,13 @@ namespace Septa.PardakhtVaset.Client
             DbInitializer = dbInitializer ?? throw new ArgumentNullException(nameof(dbInitializer));
         }
 
-        public IDbInitializer DbInitializer { get; }
-
-        public IDbCommandExecutor DbCommandExecutor { get; }
+        protected IDbInitializer DbInitializer { get; }
 
         public PardakhtVasetClientOptions Options { get; }
 
         public void Init()
         {
-            DbInitializer.Init(Options.DefaultSchema, Options.TablePrefix);
+            DbInitializer.Init(Options.TablePrefix);
         }
 
         public bool Test(string apiKey)

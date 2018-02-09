@@ -48,7 +48,7 @@ END".Trim();
             var dbInitializer = new SqlServerDbInitializer("sample connection string", mockedCommandExecutor.Object);
             
 
-            dbInitializer.Init("dbo", null);
+            dbInitializer.Init(null);
 
             mockedCommandExecutor.Verify(x => x.Execute(expectedScript, null), Times.Once());
         }

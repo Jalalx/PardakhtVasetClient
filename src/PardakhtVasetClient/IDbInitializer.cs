@@ -2,6 +2,6 @@
 {
     public interface IDbInitializer
     {
-        void Init(string schema, string tablePrefix);
+        void Init(string tablePrefix);
     }
 }

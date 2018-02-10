@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 
 namespace Septa.PardakhtVaset.Client.Internals
@@ -14,7 +15,8 @@ namespace Septa.PardakhtVaset.Client.Internals
                 foreach (var param in parser.ParseArgs(args))
                 {
                     var key = ParseKey(param);
-                    command.Parameters.AddWithValue(key, param.Value);
+                    var value = param.Value ?? DBNull.Value;
+                    command.Parameters.AddWithValue(key, value);
                 }
 
                 if (connection.State != System.Data.ConnectionState.Open)
@@ -33,7 +35,8 @@ namespace Septa.PardakhtVaset.Client.Internals
                 foreach (var param in parser.ParseArgs(args))
                 {
                     var key = ParseKey(param);
-                    command.Parameters.AddWithValue(key, param.Value);
+                    var value = param.Value ?? DBNull.Value;
+                    command.Parameters.AddWithValue(key, value);
                 }
 
                 if (connection.State != System.Data.ConnectionState.Open)
@@ -54,7 +57,8 @@ namespace Septa.PardakhtVaset.Client.Internals
                 foreach (var param in parser.ParseArgs(args))
                 {
                     var key = ParseKey(param);
-                    command.Parameters.AddWithValue(key, param.Value);
+                    var value = param.Value ?? DBNull.Value;
+                    command.Parameters.AddWithValue(key, value);
                 }
 
                 if (connection.State != System.Data.ConnectionState.Open)

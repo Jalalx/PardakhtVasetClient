@@ -66,6 +66,7 @@ namespace Septa.PardakhtVaset.Client
                 link.Description = description;
                 link.ExpireDays = expireAfterDays;
                 link.FollowId = followId;
+                link.CreateDate = DateTime.Now;
                 link.LastCheckForUpdateDate = DateTime.Now;
                 link.PaymentStatus = (int)RequestStatus.Initiated;
                 link.Token = result.RequestToken;

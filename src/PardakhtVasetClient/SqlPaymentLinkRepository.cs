@@ -20,7 +20,7 @@ namespace Septa.PardakhtVaset.Client
         {
             get
             {
-                return $"dbo.[{Options.TablePrefix}PaymentLink]";
+                return $"dbo.[{Options.TablePrefix}PaymentLinks]";
             }
         }
 
@@ -76,13 +76,17 @@ namespace Septa.PardakhtVaset.Client
                 total = Convert.ToInt32(countObj);
 
                 var query = $@"
-                    SELECT ROW_NUMBER() OVER(ORDER BY CreateDate DESC) RowNumber, p.* 
-                    FROM {PaymentLinkTableName} p
-                    WHERE p.RowNumber > (@PageIndex * @PageSize) AND p.RowNumber <= ((@PageIndex + 1) * @PageSize)
-                    ORDER BY p.CreateDate".Trim();
+                ;WITH OrderedPaymentLinks AS
+                (
+	                SELECT ROW_NUMBER() OVER(ORDER BY CreateDate DESC) AS RowNumber, p.* 
+                        FROM {PaymentLinkTableName} p
+                )
+                SELECT * FROM OrderedPaymentLinks p
+	                WHERE RowNumber > (@PageIndex * @PageSize) AND RowNumber <= ((@PageIndex + 1) * @PageSize)
+                        ORDER BY p.CreateDate;".Trim();
                 var args = new { PageIndex = pageIndex, PageSize = pageSize };
 
-                return connection.Query<PaymentLink>(query);
+                return connection.Query<PaymentLink>(query, args);
             }
         }
 

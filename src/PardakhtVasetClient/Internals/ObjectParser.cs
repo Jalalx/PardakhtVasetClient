@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Reflection;
@@ -17,8 +18,12 @@ namespace Septa.PardakhtVaset.Client.Internals
             {
                 var columnName = row.GetName(i);
                 var value = row.GetValue(i);
+                if (value == DBNull.Value)
+                    value = null;
+
                 var property = properties.FirstOrDefault(x => x.Name == columnName);
-                property.SetValue(record, value, null);
+                if (property != null)
+                    property.SetValue(record, value, null);
             }
 
             return record;

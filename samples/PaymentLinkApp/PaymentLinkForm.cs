@@ -61,7 +61,7 @@ namespace PaymentLinkApp
         {
             get
             {
-                return Convert.ToUInt16(drpExpireAfterDays.SelectedValue);
+                return Convert.ToUInt16(drpExpireAfterDays.SelectedItem);
             }
         }
     }

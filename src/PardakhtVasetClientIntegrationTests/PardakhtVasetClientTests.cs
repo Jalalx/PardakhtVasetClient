@@ -19,6 +19,21 @@ namespace PardakhtVasetClientIntegrationTests
         public void Init_UsingValidOptions_CreatesTable(string tablePrefix)
         {
             var expectedTableName = tablePrefix + "PaymentLinks";
+            var expectedColumns = new[]
+            {
+                nameof(PaymentLink.Id),
+                nameof(PaymentLink.Amount),
+                nameof(PaymentLink.BankReferenceId),
+                nameof(PaymentLink.CreateDate),
+                nameof(PaymentLink.Description),
+                nameof(PaymentLink.ExpireDays),
+                nameof(PaymentLink.FollowId),
+                nameof(PaymentLink.LastCheckForUpdateDate),
+                nameof(PaymentLink.PaymentStatus),
+                nameof(PaymentLink.ResultDate),
+                nameof(PaymentLink.Token),
+                nameof(PaymentLink.Url)
+            };
 
             var options = new PardakhtVasetClientOptions();
             options.ConnectionString = ConnectionStrings;
@@ -29,6 +44,7 @@ namespace PardakhtVasetClientIntegrationTests
             client.Init();
 
             Assert.True(TableExists(expectedTableName));
+            Assert.True(ColumnsExists(expectedTableName, expectedColumns));
         }
 
         // cleanup

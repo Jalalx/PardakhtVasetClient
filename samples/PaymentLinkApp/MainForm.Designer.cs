@@ -31,25 +31,28 @@
             this.paymentLinksGridView = new System.Windows.Forms.DataGridView();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.newLinkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.refreshDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.newLinkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             ((System.ComponentModel.ISupportInitialize)(this.paymentLinksGridView)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // paymentLinksGridView
             // 
+            this.paymentLinksGridView.AllowUserToAddRows = false;
+            this.paymentLinksGridView.AllowUserToDeleteRows = false;
             this.paymentLinksGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.paymentLinksGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.paymentLinksGridView.Location = new System.Drawing.Point(12, 55);
             this.paymentLinksGridView.Name = "paymentLinksGridView";
+            this.paymentLinksGridView.ReadOnly = true;
             this.paymentLinksGridView.Size = new System.Drawing.Size(701, 410);
             this.paymentLinksGridView.TabIndex = 3;
             // 
@@ -74,6 +77,19 @@
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
+            // 
+            // newLinkToolStripMenuItem
+            // 
+            this.newLinkToolStripMenuItem.Name = "newLinkToolStripMenuItem";
+            this.newLinkToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
+            this.newLinkToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
+            this.newLinkToolStripMenuItem.Text = "New Payment Link";
+            this.newLinkToolStripMenuItem.Click += new System.EventHandler(this.newLinkToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(213, 6);
             // 
             // exitToolStripMenuItem
             // 
@@ -111,22 +127,9 @@
             // 
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
             this.optionsToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F12;
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.optionsToolStripMenuItem.Text = "Options";
             this.optionsToolStripMenuItem.Click += new System.EventHandler(this.optionsToolStripMenuItem_Click);
-            // 
-            // newLinkToolStripMenuItem
-            // 
-            this.newLinkToolStripMenuItem.Name = "newLinkToolStripMenuItem";
-            this.newLinkToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.newLinkToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
-            this.newLinkToolStripMenuItem.Text = "New Payment Link";
-            this.newLinkToolStripMenuItem.Click += new System.EventHandler(this.newLinkToolStripMenuItem_Click);
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(170, 6);
             // 
             // MainForm
             // 

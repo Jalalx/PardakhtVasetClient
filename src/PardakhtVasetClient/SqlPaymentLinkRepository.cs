@@ -113,7 +113,7 @@ namespace Septa.PardakhtVaset.Client
             using (var connection = CreateConnection())
             {
                 var args = new { Initiated = (int)RequestStatus.Initiated, Viewed = (int)RequestStatus.Viewed };
-                var q = connection.Query<PaymentLink>($"SELECT TOP 1 p.* FROM ${PaymentLinkTableName} AS p WHERE p.[PaymentStatus] = @Initiated OR p.[PaymentStatus] = @Viewed", args);
+                var q = connection.Query<PaymentLink>($"SELECT TOP 1 p.* FROM {PaymentLinkTableName} AS p WHERE p.[PaymentStatus] = @Initiated OR p.[PaymentStatus] = @Viewed", args);
                 return q.FirstOrDefault();
             }
         }

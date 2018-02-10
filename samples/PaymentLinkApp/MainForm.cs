@@ -29,6 +29,7 @@ namespace PaymentLinkApp
         {
             int total;
             var resultset = _client.PaymentLinkRepository.GetAll(0, 20, out total);
+            paymentLinksGridView.DataSource = resultset;
         }
 
         private void newLinkToolStripMenuItem_Click(object sender, EventArgs e)
@@ -62,6 +63,12 @@ namespace PaymentLinkApp
 
             _client.PaymentLinkNotificationService.PaymentLinkChanged += PaymentLinkNotificationService_PaymentLinkChanged;
             _client.PaymentLinkNotificationService.Start(TimeSpan.FromMinutes(1));
+
+            try
+            {
+                refreshDataToolStripMenuItem_Click(sender, e);
+            }
+            catch { }
         }
 
         private void PaymentLinkNotificationService_PaymentLinkChanged(object sender, PaymentLinkChangedEventArgs e)

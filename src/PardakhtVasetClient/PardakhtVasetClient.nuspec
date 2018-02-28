@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>Septa.PardakhtVaset.Client</id>
+    <version>1.0</version>
+    <title>PardakhtVaset Client</title>
+    <authors>Septa</authors>
+    <owners>jalalx</owners>
+    <projectUrl>http://pardakhtvaset.com</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A component for creating and verifying PardakhtVaset.com payment links.</description>
+    <releaseNotes></releaseNotes>
+    <copyright>Copyright 2018</copyright>
+    <tags>pardakhtvaset.com payment</tags>
+  </metadata>
+</package>

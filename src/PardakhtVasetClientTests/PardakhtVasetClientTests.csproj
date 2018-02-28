@@ -72,6 +72,7 @@
     <Compile Include="ObjectParserTests.cs" />
     <Compile Include="PardakhtVasetClientOptionsTests.cs" />
     <Compile Include="PardakhtVasetClientTests.cs" />
+    <Compile Include="PaymentLinkNotificationServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqlServerDbInitializerTests.cs" />
   </ItemGroup>

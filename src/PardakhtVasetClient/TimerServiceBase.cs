@@ -24,7 +24,7 @@ namespace Septa.PardakhtVaset.Client
             }
         }
 
-        protected abstract void OnTick();
+        public abstract void OnTick();
 
         public void Start(TimeSpan interval)
         {

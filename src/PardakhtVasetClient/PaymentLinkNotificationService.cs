@@ -18,7 +18,7 @@ namespace Septa.PardakhtVaset.Client
             PayRequestService = payRequestService ?? throw new ArgumentNullException(nameof(payRequestService));
         }
 
-        protected override void OnTick()
+        public override void OnTick()
         {
             Trace.TraceInformation("OnTick call started.");
             string nextPaymentToken = default(string);

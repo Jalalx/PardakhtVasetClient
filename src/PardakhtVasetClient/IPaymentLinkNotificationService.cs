@@ -6,6 +6,8 @@ namespace Septa.PardakhtVaset.Client
     {
         event PaymentLinkChangedEventHandler PaymentLinkChanged;
 
+        void OnTick();
+
         void Start(TimeSpan interval);
 
         void Stop();

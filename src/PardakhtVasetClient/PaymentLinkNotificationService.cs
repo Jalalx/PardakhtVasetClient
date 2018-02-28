@@ -41,13 +41,16 @@ namespace Septa.PardakhtVaset.Client
                     e.Status = result.RequestStatus;
                     e.ResultDate = result.VerifyDate;
 
-                    nextPaymentLink.PaymentStatus = (int)result.RequestStatus;
-                    nextPaymentLink.BankReferenceId = result.BankReferenceId;
-                    nextPaymentLink.ResultDate = result.VerifyDate;
-                    nextPaymentLink.LastCheckForUpdateDate = DateTime.Now;
-                    PaymentLinkRepository.Update(nextPaymentLink);
-
                     OnPaymentLinkChanged(e);
+
+                    if (e.Handled)
+                    {
+                        nextPaymentLink.PaymentStatus = (int)result.RequestStatus;
+                        nextPaymentLink.BankReferenceId = result.BankReferenceId;
+                        nextPaymentLink.ResultDate = result.VerifyDate;
+                        nextPaymentLink.LastCheckForUpdateDate = DateTime.Now;
+                        PaymentLinkRepository.Update(nextPaymentLink);
+                    }
                 }
                 else
                 {

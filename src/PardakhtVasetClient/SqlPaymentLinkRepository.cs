@@ -72,7 +72,7 @@ namespace Septa.PardakhtVaset.Client
             total = 0;
             using (var connection = CreateConnection())
             {
-                var countObj = connection.ExecuteScalar($"SELECT COUNT(1) FROM {PaymentLinkTableName} WHERE p.ClusterId = @ClusterId;", new { ClusterId = clusterId });
+                var countObj = connection.ExecuteScalar($"SELECT COUNT(1) FROM {PaymentLinkTableName} WHERE @ClusterId IS NULL OR ClusterId = @ClusterId;", new { ClusterId = clusterId });
                 total = Convert.ToInt32(countObj);
 
                 var query = $@"
@@ -80,7 +80,7 @@ namespace Septa.PardakhtVaset.Client
                 (
 	                SELECT ROW_NUMBER() OVER(ORDER BY CreateDate DESC) AS RowNumber, p.* 
                         FROM {PaymentLinkTableName} p
-                        WHERE p.ClusterId = @ClusterId
+                        WHERE @ClusterId IS NULL OR p.ClusterId = @ClusterId
                 )
                 SELECT * FROM OrderedPaymentLinks p
 	                WHERE RowNumber > (@PageIndex * @PageSize) AND RowNumber <= ((@PageIndex + 1) * @PageSize)
@@ -95,7 +95,7 @@ namespace Septa.PardakhtVaset.Client
         {
             using (var connection = CreateConnection())
             {
-                var sql = $"INSERT INTO {PaymentLinkTableName}(Id, Amount, FollowId, Description, ExpireDays, CreateDate, LastCheckForUpdateDate, ResultDate, BankReferenceId, Url, Token, PaymentStatus)VALUES(@Id, @Amount, @FollowId, @Description, @ExpireDays, @CreateDate, @LastCheckForUpdateDate, @ResultDate, @BankReferenceId, @Url, @Token, @PaymentStatus);";
+                var sql = $"INSERT INTO {PaymentLinkTableName}(Id, Amount, FollowId, ClusterId, Description, ExpireDays, CreateDate, LastCheckForUpdateDate, ResultDate, BankReferenceId, Url, Token, PaymentStatus)VALUES(@Id, @Amount, @FollowId, @ClusterId, @Description, @ExpireDays, @CreateDate, @LastCheckForUpdateDate, @ResultDate, @BankReferenceId, @Url, @Token, @PaymentStatus);";
                 return connection.Execute(sql, link);
             }
         }
@@ -104,7 +104,7 @@ namespace Septa.PardakhtVaset.Client
         {
             using (var connection = CreateConnection())
             {
-                var sql = $"UPDATE {PaymentLinkTableName} SET Amount=@Amount, FollowId=@FollowId, Description=@Description, ExpireDays=@ExpireDays, CreateDate=@CreateDate, LastCheckForUpdateDate=@LastCheckForUpdateDate, ResultDate=@ResultDate, BankReferenceId=@BankReferenceId, Url=@Url, Token=@Token, PaymentStatus=@PaymentStatus WHERE Id=@Id;";
+                var sql = $"UPDATE {PaymentLinkTableName} SET Amount=@Amount, FollowId=@FollowId, ClusterId=@ClusterId, Description=@Description, ExpireDays=@ExpireDays, CreateDate=@CreateDate, LastCheckForUpdateDate=@LastCheckForUpdateDate, ResultDate=@ResultDate, BankReferenceId=@BankReferenceId, Url=@Url, Token=@Token, PaymentStatus=@PaymentStatus WHERE Id=@Id;";
                 return connection.Execute(sql, link);
             }
         }
@@ -115,7 +115,7 @@ namespace Septa.PardakhtVaset.Client
             {
                 var args = new { Initiated = (int)RequestStatus.Initiated, Viewed = (int)RequestStatus.Viewed, ClusterId = clusterId };
                 var q = connection.Query<PaymentLink>($"SELECT TOP 1 p.* " +
-                    $"FROM {PaymentLinkTableName} AS p WHERE p.ClusterId = @ClusterId AND (p.[PaymentStatus] = @Initiated OR p.[PaymentStatus] = @Viewed) ORDER BY [LastCheckForUpdateDate] ASC", args);
+                    $"FROM {PaymentLinkTableName} AS p WHERE (@ClusterId IS NULL OR p.ClusterId = @ClusterId) AND (p.[PaymentStatus] = @Initiated OR p.[PaymentStatus] = @Viewed) ORDER BY [LastCheckForUpdateDate] ASC", args);
                 return q.FirstOrDefault();
             }
         }

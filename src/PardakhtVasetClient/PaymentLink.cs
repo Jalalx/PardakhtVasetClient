@@ -10,6 +10,8 @@ namespace Septa.PardakhtVaset.Client
 
         public string FollowId { get; set; }
 
+        public string ClusterId { get; set; }
+
         public string Description { get; set; }
 
         public int ExpireDays { get; set; }

@@ -34,6 +34,7 @@ BEGIN
 	[Id] [uniqueidentifier] NOT NULL PRIMARY KEY DEFAULT NEWID(),
 	[Amount] [decimal](18, 2) NOT NULL,
     [FollowId] [nvarchar](50) NULL,
+    [ClusterId] [nvarchar](50) NULL,
 	[Token] [nvarchar](50) NOT NULL,
 	[Url] [nvarchar](1000) NOT NULL,
 	[CreateDate] [datetime] NOT NULL DEFAULT GETDATE(),

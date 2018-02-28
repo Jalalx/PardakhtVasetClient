@@ -28,7 +28,7 @@ namespace PaymentLinkApp
         private void refreshDataToolStripMenuItem_Click(object sender, EventArgs e)
         {
             int total;
-            var resultset = _client.PaymentLinkRepository.GetAll(0, 20, out total);
+            var resultset = _client.PaymentLinkRepository.GetAll(0, 20, null, out total);
             paymentLinksGridView.DataSource = resultset;
         }
 
@@ -59,7 +59,7 @@ namespace PaymentLinkApp
             options.TablePrefix = "";
 
             _client = new PardakhtVasetClient(options);
-            _client.Init();
+            _client.Init(null);
 
             _client.PaymentLinkNotificationService.PaymentLinkChanged += PaymentLinkNotificationService_PaymentLinkChanged;
             _client.PaymentLinkNotificationService.Start(TimeSpan.FromMinutes(1));

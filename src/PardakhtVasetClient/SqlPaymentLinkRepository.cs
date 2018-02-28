@@ -67,12 +67,12 @@ namespace Septa.PardakhtVaset.Client
             }
         }
 
-        public IEnumerable<PaymentLink> GetAll(int pageIndex, int pageSize, out int total)
+        public IEnumerable<PaymentLink> GetAll(int pageIndex, int pageSize, string clusterId, out int total)
         {
             total = 0;
             using (var connection = CreateConnection())
             {
-                var countObj = connection.ExecuteScalar($"SELECT COUNT(1) FROM {PaymentLinkTableName};");
+                var countObj = connection.ExecuteScalar($"SELECT COUNT(1) FROM {PaymentLinkTableName} WHERE p.ClusterId = @ClusterId;", new { ClusterId = clusterId });
                 total = Convert.ToInt32(countObj);
 
                 var query = $@"
@@ -80,11 +80,12 @@ namespace Septa.PardakhtVaset.Client
                 (
 	                SELECT ROW_NUMBER() OVER(ORDER BY CreateDate DESC) AS RowNumber, p.* 
                         FROM {PaymentLinkTableName} p
+                        WHERE p.ClusterId = @ClusterId
                 )
                 SELECT * FROM OrderedPaymentLinks p
 	                WHERE RowNumber > (@PageIndex * @PageSize) AND RowNumber <= ((@PageIndex + 1) * @PageSize)
                         ORDER BY p.CreateDate;".Trim();
-                var args = new { PageIndex = pageIndex, PageSize = pageSize };
+                var args = new { PageIndex = pageIndex, PageSize = pageSize, ClusterId = clusterId };
 
                 return connection.Query<PaymentLink>(query, args);
             }
@@ -108,12 +109,13 @@ namespace Septa.PardakhtVaset.Client
             }
         }
 
-        public PaymentLink GetNextLinkForCheck()
+        public PaymentLink GetNextLinkForCheck(string clusterId)
         {
             using (var connection = CreateConnection())
             {
-                var args = new { Initiated = (int)RequestStatus.Initiated, Viewed = (int)RequestStatus.Viewed };
-                var q = connection.Query<PaymentLink>($"SELECT TOP 1 p.* FROM {PaymentLinkTableName} AS p WHERE p.[PaymentStatus] = @Initiated OR p.[PaymentStatus] = @Viewed ORDER BY [LastCheckForUpdateDate] ASC", args);
+                var args = new { Initiated = (int)RequestStatus.Initiated, Viewed = (int)RequestStatus.Viewed, ClusterId = clusterId };
+                var q = connection.Query<PaymentLink>($"SELECT TOP 1 p.* " +
+                    $"FROM {PaymentLinkTableName} AS p WHERE p.ClusterId = @ClusterId AND (p.[PaymentStatus] = @Initiated OR p.[PaymentStatus] = @Viewed) ORDER BY [LastCheckForUpdateDate] ASC", args);
                 return q.FirstOrDefault();
             }
         }

@@ -2,10 +2,6 @@
 using PardakhtVasetServices;
 using Septa.PardakhtVaset.Client;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace PardakhtVasetClientTests
@@ -36,7 +32,7 @@ namespace PardakhtVasetClientTests
             nextPaymentLink.Token = "1d372049-17de-4550-aecc-06111fdf2a9b";
             nextPaymentLink.Url = "https://pardakhtvaset.com/pay?token=1d372049-17de-4550-aecc-06111fdf2a9b";
 
-            mockedRepository.Setup(x => x.GetNextLinkForCheck()).Returns(nextPaymentLink);
+            mockedRepository.Setup(x => x.GetNextLinkForCheck(null)).Returns(nextPaymentLink);
 
             var fakeEpayResult = new EPayRequestCheckResult();
             fakeEpayResult.BankReferenceId = "57430753503405340";
@@ -50,7 +46,7 @@ namespace PardakhtVasetClientTests
 
             service.OnTick();
 
-            mockedRepository.Verify(x => x.GetNextLinkForCheck(), Times.Once());
+            mockedRepository.Verify(x => x.GetNextLinkForCheck(It.IsAny<string>()), Times.Once());
             mockedPayRequest.Verify(x => x.Check(options.ApiKey, nextPaymentLink.Token), Times.Once());
             mockedRepository.Verify(x => x.Update(nextPaymentLink), Times.Once());
         }
@@ -79,7 +75,7 @@ namespace PardakhtVasetClientTests
             nextPaymentLink.Token = "1d372049-17de-4550-aecc-06111fdf2a9b";
             nextPaymentLink.Url = "https://pardakhtvaset.com/pay?token=1d372049-17de-4550-aecc-06111fdf2a9b";
 
-            mockedRepository.Setup(x => x.GetNextLinkForCheck()).Returns(nextPaymentLink);
+            mockedRepository.Setup(x => x.GetNextLinkForCheck(It.IsAny<string>())).Returns(nextPaymentLink);
 
             var fakeEpayResult = new EPayRequestCheckResult();
             fakeEpayResult.BankReferenceId = "57430753503405340";
@@ -93,7 +89,7 @@ namespace PardakhtVasetClientTests
 
             service.OnTick();
 
-            mockedRepository.Verify(x => x.GetNextLinkForCheck(), Times.Once());
+            mockedRepository.Verify(x => x.GetNextLinkForCheck(null), Times.Once());
             mockedPayRequest.Verify(x => x.Check(options.ApiKey, nextPaymentLink.Token), Times.Once());
             mockedRepository.Verify(x => x.Update(nextPaymentLink), Times.Never());
         }
@@ -123,7 +119,7 @@ namespace PardakhtVasetClientTests
             nextPaymentLink.Token = "1d372049-17de-4550-aecc-06111fdf2a9b";
             nextPaymentLink.Url = "https://pardakhtvaset.com/pay?token=1d372049-17de-4550-aecc-06111fdf2a9b";
 
-            mockedRepository.Setup(x => x.GetNextLinkForCheck()).Returns(nextPaymentLink);
+            mockedRepository.Setup(x => x.GetNextLinkForCheck(It.IsAny<string>())).Returns(nextPaymentLink);
 
             var fakeEpayResult = new EPayRequestCheckResult();
             fakeEpayResult.BankReferenceId = null;
@@ -139,7 +135,7 @@ namespace PardakhtVasetClientTests
 
             service.OnTick();
 
-            mockedRepository.Verify(x => x.GetNextLinkForCheck(), Times.Once());
+            mockedRepository.Verify(x => x.GetNextLinkForCheck(It.IsAny<string>()), Times.Once());
             mockedPayRequest.Verify(x => x.Check(options.ApiKey, nextPaymentLink.Token), Times.Once());
             mockedRepository.Verify(x => x.Update(nextPaymentLink), Times.Never());
             Assert.False(paymentLinkEventCalled);

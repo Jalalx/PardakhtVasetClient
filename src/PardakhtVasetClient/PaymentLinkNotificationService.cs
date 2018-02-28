@@ -9,6 +9,8 @@ namespace Septa.PardakhtVaset.Client
         public IPaymentLinkRepository PaymentLinkRepository { get; }
         public PardakhtVasetServices.IPayRequest PayRequestService { get; }
 
+        public string ClusterId { get; set; }
+
         public event PaymentLinkChangedEventHandler PaymentLinkChanged;
 
         public PaymentLinkNotificationService(PardakhtVasetClientOptions options, IPaymentLinkRepository paymentLinkRepository, PardakhtVasetServices.IPayRequest payRequestService)
@@ -24,7 +26,7 @@ namespace Septa.PardakhtVaset.Client
             string nextPaymentToken = default(string);
             try
             {
-                var nextPaymentLink = PaymentLinkRepository.GetNextLinkForCheck();
+                var nextPaymentLink = PaymentLinkRepository.GetNextLinkForCheck(ClusterId);
                 nextPaymentToken = nextPaymentLink.Token;
                 Trace.TraceInformation("Next payment link fetched from database. Token: '{0}', FollowId: '{1}'", nextPaymentLink.Token, nextPaymentLink.FollowId);
 

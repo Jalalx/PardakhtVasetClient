@@ -10,7 +10,7 @@ namespace Septa.PardakhtVaset.Client
 
         PardakhtVasetClientOptions Options { get; }
 
-        void Init();
+        void Init(string clusterId);
 
         bool Test(string apiKey);
 

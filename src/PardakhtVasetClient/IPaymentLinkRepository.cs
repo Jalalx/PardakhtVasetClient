@@ -4,7 +4,7 @@ namespace Septa.PardakhtVaset.Client
 {
     public interface IPaymentLinkRepository
     {
-        IEnumerable<PaymentLink> GetAll(int pageIndex, int pageSize, out int total);
+        IEnumerable<PaymentLink> GetAll(int pageIndex, int pageSize, string clusterId, out int total);
 
         PaymentLink FindByToken(string token);
 
@@ -16,6 +16,6 @@ namespace Septa.PardakhtVaset.Client
 
         bool Delete(PaymentLink link);
 
-        PaymentLink GetNextLinkForCheck();
+        PaymentLink GetNextLinkForCheck(string clusterId);
     }
 }

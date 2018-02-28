@@ -37,9 +37,10 @@ namespace Septa.PardakhtVaset.Client
             get;
         }
 
-        public void Init()
+        public void Init(string clusterId)
         {
             DbInitializer.Init(Options.TablePrefix);
+            PaymentLinkNotificationService.ClusterId = clusterId;
         }
 
         public bool Test(string apiKey)

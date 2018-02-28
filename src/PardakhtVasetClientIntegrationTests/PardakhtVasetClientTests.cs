@@ -28,6 +28,7 @@ namespace PardakhtVasetClientIntegrationTests
                 nameof(PaymentLink.Description),
                 nameof(PaymentLink.ExpireDays),
                 nameof(PaymentLink.FollowId),
+                nameof(PaymentLink.ClusterId),
                 nameof(PaymentLink.LastCheckForUpdateDate),
                 nameof(PaymentLink.PaymentStatus),
                 nameof(PaymentLink.ResultDate),
@@ -41,7 +42,7 @@ namespace PardakhtVasetClientIntegrationTests
 
             var client = new PardakhtVasetClient(options);
 
-            client.Init();
+            client.Init(null);
 
             Assert.True(TableExists(expectedTableName));
             Assert.True(ColumnsExists(expectedTableName, expectedColumns));

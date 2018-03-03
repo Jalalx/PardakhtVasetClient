@@ -35,6 +35,8 @@
             this.btnSave = new System.Windows.Forms.Button();
             this.txtConnectionString = new System.Windows.Forms.TextBox();
             this.txtApiKey = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtClusterId = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label1
@@ -80,7 +82,7 @@
             // btnSave
             // 
             this.btnSave.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnSave.Location = new System.Drawing.Point(412, 227);
+            this.btnSave.Location = new System.Drawing.Point(414, 259);
             this.btnSave.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(86, 27);
@@ -111,12 +113,34 @@
             this.txtApiKey.TabIndex = 3;
             this.txtApiKey.Text = global::PaymentLinkApp.Properties.Settings.Default.ApiKey;
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(15, 210);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(68, 14);
+            this.label3.TabIndex = 11;
+            this.label3.Text = "دسته بندی:";
+            // 
+            // txtClusterId
+            // 
+            this.txtClusterId.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::PaymentLinkApp.Properties.Settings.Default, "ClusterId", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.txtClusterId.Location = new System.Drawing.Point(19, 229);
+            this.txtClusterId.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtClusterId.Name = "txtClusterId";
+            this.txtClusterId.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.txtClusterId.Size = new System.Drawing.Size(478, 22);
+            this.txtClusterId.TabIndex = 10;
+            this.txtClusterId.Text = global::PaymentLinkApp.Properties.Settings.Default.ClusterId;
+            // 
             // OptionsForm
             // 
             this.AcceptButton = this.btnSave;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(512, 265);
+            this.ClientSize = new System.Drawing.Size(512, 299);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.txtClusterId);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btnTestConnectionString);
@@ -148,5 +172,7 @@
         private System.Windows.Forms.Button btnTestConnectionString;
         private System.Windows.Forms.TextBox txtConnectionString;
         private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox txtClusterId;
     }
 }

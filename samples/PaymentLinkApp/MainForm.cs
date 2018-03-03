@@ -59,10 +59,10 @@ namespace PaymentLinkApp
             options.TablePrefix = "";
 
             _client = new PardakhtVasetClient(options);
-            _client.Init(null);
+            _client.Init(Settings.Default.ClusterId);
 
             _client.PaymentLinkNotificationService.PaymentLinkChanged += PaymentLinkNotificationService_PaymentLinkChanged;
-            _client.PaymentLinkNotificationService.Start(TimeSpan.FromMinutes(1));
+            _client.PaymentLinkNotificationService.Start(TimeSpan.FromSeconds(10));
 
             try
             {
@@ -78,6 +78,8 @@ namespace PaymentLinkApp
                 MessageBox.Show(string.Format("Payment link with token '{0}' and follow id '{1}' is paid at '{2}'", e.Token, e.FollowId, e.ResultDate),
                     "Paid", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+
+            e.Handled = true;
         }
     }
 }

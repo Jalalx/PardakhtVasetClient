@@ -40,7 +40,20 @@ namespace Septa.PardakhtVaset.Client
         public void Init(string clusterId)
         {
             DbInitializer.Init(Options.TablePrefix);
-            PaymentLinkNotificationService.ClusterId = clusterId;
+
+            if(clusterId != null)
+            {
+                clusterId = clusterId.Trim();
+            }
+
+            if (string.IsNullOrEmpty(clusterId))
+            {
+                PaymentLinkNotificationService.ClusterId = null;
+            }
+            else
+            {
+                PaymentLinkNotificationService.ClusterId = clusterId.Trim();
+            }
         }
 
         public bool Test(string apiKey)

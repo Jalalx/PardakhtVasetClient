@@ -74,7 +74,7 @@ namespace Septa.PardakhtVaset.Client
                 link.Url = result.PaymentUrl;
                 link.ResultDate = null;
                 link.Id = Guid.NewGuid();
-
+                link.ClusterId = PaymentLinkNotificationService.ClusterId;
                 PaymentLinkRepository.Insert(link);
 
                 return link;

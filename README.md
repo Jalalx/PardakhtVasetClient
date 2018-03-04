@@ -43,4 +43,12 @@ And now you have to subscribe to `PaymentLinkChanged` event and start notificati
         e.Handled = true;
     }
     
+## Creating a payment link
+To create a payment link, you need to call `Create` method of `_client` like this:
+
+    var link = _client.Create(1230000/*amount (in Rials)*/, null/* followId*/, "0123"/* invoice number*/,
+            new DateTime(2018,2,2) /* invoice Date*/, 30 /* expire in days*/, "sample link"/* description*/);
+        
+You can use `link.Url` to get payment link and send it to payer via SMS, Email or any Social Network application.
+
 For more info, checkout the sample windows application in this repository.

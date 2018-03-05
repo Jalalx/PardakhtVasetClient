@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Septa.PardakhtVaset.Client
 {
-    public interface IPaymentLinkRepository
+    public interface IPaymentLinkRepository : IDisposable
     {
         IEnumerable<PaymentLink> GetAll(int pageIndex, int pageSize, string clusterId, out int total);
 

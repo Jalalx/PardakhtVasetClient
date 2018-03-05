@@ -50,10 +50,11 @@ namespace Septa.PardakhtVaset.Client
             }
         }
 
-        public void Dispose()
+        public virtual void Dispose()
         {
             if (!_isDisposed)
             {
+                Stop();
                 _timer.Dispose();
                 _isDisposed = true;
             }

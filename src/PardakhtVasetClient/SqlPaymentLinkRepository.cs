@@ -119,5 +119,9 @@ namespace Septa.PardakhtVaset.Client
                 return q.FirstOrDefault();
             }
         }
+
+        public void Dispose()
+        {
+        }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Septa.PardakhtVaset.Client
 {
-    public interface IPardakhtVasetClient
+    public interface IPardakhtVasetClient : IDisposable
     {
         IPaymentLinkNotificationService PaymentLinkNotificationService { get; }
 

@@ -8,6 +8,8 @@ namespace Septa.PardakhtVaset.Client
 {
     public class PardakhtVasetClient : IPardakhtVasetClient
     {
+        private bool _isDisposed = false;
+
         public PardakhtVasetClient(PardakhtVasetClientOptions options) :
             this(options, options == null ? throw new ArgumentNullException(nameof(options)) : new SqlServerDbInitializer(options.ConnectionString),
                 options == null ? throw new ArgumentNullException(nameof(options)) : new SqlPaymentLinkRepository(options), new PayRequestFactory())
@@ -41,7 +43,7 @@ namespace Septa.PardakhtVaset.Client
         {
             DbInitializer.Init(Options.TablePrefix);
 
-            if(clusterId != null)
+            if (clusterId != null)
             {
                 clusterId = clusterId.Trim();
             }
@@ -95,6 +97,20 @@ namespace Septa.PardakhtVaset.Client
             else
             {
                 throw new InvalidOperationException(result.Message);
+            }
+        }
+
+        public void Dispose()
+        {
+            if (!_isDisposed)
+            {
+                if (PaymentLinkNotificationService != null)
+                    PaymentLinkNotificationService.Dispose();
+
+                if (PaymentLinkRepository != null)
+                    PaymentLinkRepository.Dispose();
+
+                _isDisposed = true;
             }
         }
     }

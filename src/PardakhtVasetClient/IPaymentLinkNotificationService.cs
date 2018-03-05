@@ -2,7 +2,7 @@
 
 namespace Septa.PardakhtVaset.Client
 {
-    public interface IPaymentLinkNotificationService
+    public interface IPaymentLinkNotificationService : IDisposable
     {
         string ClusterId { get; set; }
 

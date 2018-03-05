@@ -11,7 +11,18 @@ namespace Septa.PardakhtVaset.Client
 
         public string ClusterId { get; set; }
 
-        public event PaymentLinkChangedEventHandler PaymentLinkChanged;
+        private event PaymentLinkChangedEventHandler _paymentLinkChanged;
+        public event PaymentLinkChangedEventHandler PaymentLinkChanged
+        {
+            add
+            {
+                _paymentLinkChanged += value;
+            }
+            remove
+            {
+                _paymentLinkChanged -= value;
+            }
+        }
 
         public PaymentLinkNotificationService(PardakhtVasetClientOptions options, IPaymentLinkRepository paymentLinkRepository, PardakhtVasetServices.IPayRequest payRequestService)
         {
@@ -72,13 +83,19 @@ namespace Septa.PardakhtVaset.Client
             try
             {
                 Trace.TraceInformation("Trying to call event handler for PaymentLinkChanged.");
-                PaymentLinkChanged?.Invoke(this, e);
+                _paymentLinkChanged?.Invoke(this, e);
                 Trace.TraceInformation("Event handler for PaymentLinkChanged called.");
             }
             catch (Exception ex)
             {
                 Trace.TraceError("An exception was thrown when trying to call PaymentLinkChanged handler: {0}", ex);
             }
+        }
+
+        public override void Dispose()
+        {
+            _paymentLinkChanged = null;
+            base.Dispose();
         }
     }
 }

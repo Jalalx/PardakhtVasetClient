@@ -18,7 +18,7 @@ namespace PaymentLinkApp
             try
             {
                 var client = new PardakhtVasetClient(new PardakhtVasetClientOptions { ConnectionString = txtConnectionString.Text.Trim(), TablePrefix = "" });
-                var result = client.Test(txtApiKey.Text);
+                var result = client.Test(txtApiKey.Text, txtPassword.Text);
 
                 if (result)
                 {

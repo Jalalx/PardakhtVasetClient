@@ -8,7 +8,6 @@ namespace PaymentLinkApp
     public partial class MainForm : Form
     {
         private PardakhtVasetClient _client = null;
-        private PaymentLinkNotificationService _notificationService = null;
 
         public MainForm()
         {
@@ -56,6 +55,8 @@ namespace PaymentLinkApp
             var options = new PardakhtVasetClientOptions();
             options.ConnectionString = Settings.Default.ConnectionString;
             options.ApiKey = Settings.Default.ApiKey;
+            options.Password = Settings.Default.Password;
+
             options.TablePrefix = "";
 
             _client = new PardakhtVasetClient(options);

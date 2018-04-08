@@ -37,6 +37,8 @@
             this.txtApiKey = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.txtClusterId = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtPassword = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label1
@@ -44,9 +46,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(15, 10);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(54, 14);
+            this.label1.Size = new System.Drawing.Size(61, 14);
             this.label1.TabIndex = 5;
-            this.label1.Text = "API Key:";
+            this.label1.Text = "نام کاربری:";
             // 
             // btnCheckApiKey
             // 
@@ -109,7 +111,7 @@
             this.txtApiKey.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtApiKey.Name = "txtApiKey";
             this.txtApiKey.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.txtApiKey.Size = new System.Drawing.Size(479, 22);
+            this.txtApiKey.Size = new System.Drawing.Size(223, 22);
             this.txtApiKey.TabIndex = 3;
             this.txtApiKey.Text = global::PaymentLinkApp.Properties.Settings.Default.ApiKey;
             // 
@@ -133,12 +135,35 @@
             this.txtClusterId.TabIndex = 10;
             this.txtClusterId.Text = global::PaymentLinkApp.Properties.Settings.Default.ClusterId;
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(271, 10);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(50, 14);
+            this.label4.TabIndex = 13;
+            this.label4.Text = "رمز عبور:";
+            // 
+            // txtPassword
+            // 
+            this.txtPassword.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::PaymentLinkApp.Properties.Settings.Default, "Password", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.txtPassword.Location = new System.Drawing.Point(275, 34);
+            this.txtPassword.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtPassword.Name = "txtPassword";
+            this.txtPassword.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.txtPassword.Size = new System.Drawing.Size(222, 22);
+            this.txtPassword.TabIndex = 12;
+            this.txtPassword.Text = global::PaymentLinkApp.Properties.Settings.Default.Password;
+            this.txtPassword.UseSystemPasswordChar = true;
+            // 
             // OptionsForm
             // 
             this.AcceptButton = this.btnSave;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(512, 299);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.txtPassword);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.txtClusterId);
             this.Controls.Add(this.btnSave);
@@ -174,5 +199,7 @@
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtClusterId;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox txtPassword;
     }
 }

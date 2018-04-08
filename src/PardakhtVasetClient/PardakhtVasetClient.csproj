@@ -48,6 +48,7 @@
     <Compile Include="PaymentLinkChangedEventArgs.cs" />
     <Compile Include="PaymentLinkNotificationService.cs" />
     <Compile Include="PayRequestFactory.cs" />
+    <Compile Include="Services\Reference2.cs" />
     <Compile Include="SqlDbCommandExecutor.cs" />
     <Compile Include="IDbCommandExecutor.cs" />
     <Compile Include="IDbInitializer.cs" />

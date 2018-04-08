@@ -7,7 +7,7 @@ namespace Septa.PardakhtVaset.Client
     {
         public PardakhtVasetClientOptions Options { get; }
         public IPaymentLinkRepository PaymentLinkRepository { get; }
-        public PardakhtVasetServices.IPayRequest PayRequestService { get; }
+        public PardakhtVasetServices.IPayRequestV2 PayRequestService { get; }
 
         public string ClusterId { get; set; }
 
@@ -24,7 +24,7 @@ namespace Septa.PardakhtVaset.Client
             }
         }
 
-        public PaymentLinkNotificationService(PardakhtVasetClientOptions options, IPaymentLinkRepository paymentLinkRepository, PardakhtVasetServices.IPayRequest payRequestService)
+        public PaymentLinkNotificationService(PardakhtVasetClientOptions options, IPaymentLinkRepository paymentLinkRepository, PardakhtVasetServices.IPayRequestV2 payRequestService)
         {
             Options = options ?? throw new ArgumentNullException(nameof(options));
             PaymentLinkRepository = paymentLinkRepository ?? throw new ArgumentNullException(nameof(paymentLinkRepository));
@@ -42,7 +42,7 @@ namespace Septa.PardakhtVaset.Client
                 Trace.TraceInformation("Next payment link fetched from database. Token: '{0}', FollowId: '{1}'", nextPaymentLink.Token, nextPaymentLink.FollowId);
 
                 Trace.TraceInformation("Checking payment link status for token '{0}'", nextPaymentLink.Token);
-                var result = PayRequestService.Check(Options.ApiKey, nextPaymentLink.Token);
+                var result = PayRequestService.Check(Options.ApiKey, Options.Password, nextPaymentLink.Token);
 
                 if (result.Success)
                 {

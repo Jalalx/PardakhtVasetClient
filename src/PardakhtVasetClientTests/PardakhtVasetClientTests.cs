@@ -25,7 +25,7 @@ namespace PardakhtVasetClientTests
         [Fact]
         public void CreateInstance_WithCorrectOptions_CreatesNewInstance()
         {
-            var options = new PardakhtVasetClientOptions { ApiKey = "my api key", ConnectionString = "my connection string;", TablePrefix = "pv" };
+            var options = new PardakhtVasetClientOptions { ApiKey = "my api key", Password = "my password", ConnectionString = "my connection string;", TablePrefix = "pv" };
             var client = new PardakhtVasetClient(options);
 
             Assert.NotNull(client);
@@ -37,14 +37,14 @@ namespace PardakhtVasetClientTests
         [Fact]
         public void Dispose_WithExistingSubscribers_DisposeWithoutError()
         {
-            var options = new PardakhtVasetClientOptions { ApiKey = "my api key", ConnectionString = "my connection string;", TablePrefix = "pv" };
+            var options = new PardakhtVasetClientOptions { ApiKey = "my api key", Password = "my password", ConnectionString = "my connection string;", TablePrefix = "pv" };
 
             var mockedDbInitializer = new Mock<IDbInitializer>();
             var mockedPaymentRepository = new Mock<IPaymentLinkRepository>();
             var mockedPaymetRequestFactory = new Mock<IPayRequestFactory>();
-            var mockedPayRequest = new Mock<IPayRequest>();
+            var mockedPayRequest = new Mock<IPayRequestV2>();
 
-            mockedPaymetRequestFactory.Setup(x => x.Create()).Returns(mockedPayRequest.Object);
+            mockedPaymetRequestFactory.Setup(x => x.CreateV2()).Returns(mockedPayRequest.Object);
 
             var client = new PardakhtVasetClient(options, mockedDbInitializer.Object, mockedPaymentRepository.Object, mockedPaymetRequestFactory.Object);
 

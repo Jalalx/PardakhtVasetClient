@@ -13,11 +13,12 @@ namespace PardakhtVasetClientTests
         {
             var options = new PardakhtVasetClientOptions();
             options.ApiKey = "foo";
+            options.Password = "my password";
             options.ConnectionString = "fake connection string";
             options.TablePrefix = "";
 
             var mockedRepository = new Mock<IPaymentLinkRepository>();
-            var mockedPayRequest = new Mock<IPayRequest>();
+            var mockedPayRequest = new Mock<IPayRequestV2>();
 
             var nextPaymentLink = new PaymentLink();
             nextPaymentLink.Amount = 26000;
@@ -39,7 +40,7 @@ namespace PardakhtVasetClientTests
             fakeEpayResult.RequestStatus = RequestStatus.Paid;
             fakeEpayResult.Success = true;
             fakeEpayResult.VerifyDate = new DateTime(2017, 12, 4);
-            mockedPayRequest.Setup(x => x.Check(options.ApiKey, nextPaymentLink.Token)).Returns(fakeEpayResult);
+            mockedPayRequest.Setup(x => x.Check(options.ApiKey, options.Password, nextPaymentLink.Token)).Returns(fakeEpayResult);
             
             var service = new PaymentLinkNotificationService(options, mockedRepository.Object, mockedPayRequest.Object);
             service.PaymentLinkChanged += (o, e) => e.Handled = true;
@@ -47,7 +48,7 @@ namespace PardakhtVasetClientTests
             service.OnTick();
 
             mockedRepository.Verify(x => x.GetNextLinkForCheck(It.IsAny<string>()), Times.Once());
-            mockedPayRequest.Verify(x => x.Check(options.ApiKey, nextPaymentLink.Token), Times.Once());
+            mockedPayRequest.Verify(x => x.Check(options.ApiKey, options.Password, nextPaymentLink.Token), Times.Once());
             mockedRepository.Verify(x => x.Update(nextPaymentLink), Times.Once());
         }
 
@@ -56,11 +57,12 @@ namespace PardakhtVasetClientTests
         {
             var options = new PardakhtVasetClientOptions();
             options.ApiKey = "foo";
+            options.Password = "my password";
             options.ConnectionString = "fake connection string";
             options.TablePrefix = "";
 
             var mockedRepository = new Mock<IPaymentLinkRepository>();
-            var mockedPayRequest = new Mock<IPayRequest>();
+            var mockedPayRequest = new Mock<IPayRequestV2>();
 
             var nextPaymentLink = new PaymentLink();
             nextPaymentLink.Amount = 26000;
@@ -82,7 +84,7 @@ namespace PardakhtVasetClientTests
             fakeEpayResult.RequestStatus = RequestStatus.Paid;
             fakeEpayResult.Success = true;
             fakeEpayResult.VerifyDate = new DateTime(2017, 12, 4);
-            mockedPayRequest.Setup(x => x.Check(options.ApiKey, nextPaymentLink.Token)).Returns(fakeEpayResult);
+            mockedPayRequest.Setup(x => x.Check(options.ApiKey, options.Password, nextPaymentLink.Token)).Returns(fakeEpayResult);
 
             var service = new PaymentLinkNotificationService(options, mockedRepository.Object, mockedPayRequest.Object);
             service.PaymentLinkChanged += (o, e) => e.Handled = false;
@@ -90,7 +92,7 @@ namespace PardakhtVasetClientTests
             service.OnTick();
 
             mockedRepository.Verify(x => x.GetNextLinkForCheck(null), Times.Once());
-            mockedPayRequest.Verify(x => x.Check(options.ApiKey, nextPaymentLink.Token), Times.Once());
+            mockedPayRequest.Verify(x => x.Check(options.ApiKey, options.Password, nextPaymentLink.Token), Times.Once());
             mockedRepository.Verify(x => x.Update(nextPaymentLink), Times.Never());
         }
 
@@ -100,11 +102,12 @@ namespace PardakhtVasetClientTests
             var paymentLinkEventCalled = false;
             var options = new PardakhtVasetClientOptions();
             options.ApiKey = "foo";
+            options.Password = "my password";
             options.ConnectionString = "fake connection string";
             options.TablePrefix = "";
 
             var mockedRepository = new Mock<IPaymentLinkRepository>();
-            var mockedPayRequest = new Mock<IPayRequest>();
+            var mockedPayRequest = new Mock<IPayRequestV2>();
 
             var nextPaymentLink = new PaymentLink();
             nextPaymentLink.Amount = 26000;
@@ -128,7 +131,7 @@ namespace PardakhtVasetClientTests
             fakeEpayResult.Message = "some random error message";
             fakeEpayResult.Success = false;
             fakeEpayResult.VerifyDate = null;
-            mockedPayRequest.Setup(x => x.Check(options.ApiKey, nextPaymentLink.Token)).Returns(fakeEpayResult);
+            mockedPayRequest.Setup(x => x.Check(options.ApiKey, options.Password, nextPaymentLink.Token)).Returns(fakeEpayResult);
 
             var service = new PaymentLinkNotificationService(options, mockedRepository.Object, mockedPayRequest.Object);
             service.PaymentLinkChanged += (o, e) => paymentLinkEventCalled = true;
@@ -136,7 +139,7 @@ namespace PardakhtVasetClientTests
             service.OnTick();
 
             mockedRepository.Verify(x => x.GetNextLinkForCheck(It.IsAny<string>()), Times.Once());
-            mockedPayRequest.Verify(x => x.Check(options.ApiKey, nextPaymentLink.Token), Times.Once());
+            mockedPayRequest.Verify(x => x.Check(options.ApiKey, options.Password, nextPaymentLink.Token), Times.Once());
             mockedRepository.Verify(x => x.Update(nextPaymentLink), Times.Never());
             Assert.False(paymentLinkEventCalled);
         }

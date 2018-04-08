@@ -23,7 +23,7 @@ namespace Septa.PardakhtVaset.Client
             PaymentLinkRepository = paymentLinkRepository ?? throw new ArgumentNullException(nameof(paymentLinkRepository));
             PayRequestFactory = payRequestFactory ?? throw new ArgumentNullException(nameof(payRequestFactory));
 
-            PaymentLinkNotificationService = new PaymentLinkNotificationService(options, paymentLinkRepository, payRequestFactory.Create());
+            PaymentLinkNotificationService = new PaymentLinkNotificationService(options, paymentLinkRepository, payRequestFactory.CreateV2());
         }
 
         protected IDbInitializer DbInitializer { get; }
@@ -63,9 +63,14 @@ namespace Septa.PardakhtVaset.Client
             return PayRequestFactory.Create().Verify(apiKey);
         }
 
+        public bool Test(string apiKey, string password)
+        {
+            return PayRequestFactory.CreateV2().Verify(apiKey, password);
+        }
+
         public PaymentLink Create(decimal amount, string followId, string invoiceNumber, DateTime invoiceDate, ushort expireAfterDays, string description)
         {
-            var service = PayRequestFactory.Create();
+            var service = PayRequestFactory.CreateV2();
             var request = new EPayRequestModel();
             request.Amount = amount;
             request.Description = description;
@@ -74,7 +79,7 @@ namespace Septa.PardakhtVaset.Client
             request.InvoiceDate = invoiceDate;
             request.IsAutoRedirect = false;
 
-            var result = service.Create(Options.ApiKey, request);
+            var result = service.Create(Options.ApiKey, Options.Password, request);
             if (result.Success)
             {
                 var link = new PaymentLink();

@@ -11,6 +11,10 @@ namespace Septa.PardakhtVaset.Client
         {
         }
 
+        public string Message { get; set; }
+
+        public bool Success { get; set; }
+
         public bool Handled { get; set; }
 
         public string FollowId { get; set; }

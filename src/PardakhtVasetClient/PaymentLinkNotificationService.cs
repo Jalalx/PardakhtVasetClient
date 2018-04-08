@@ -43,31 +43,32 @@ namespace Septa.PardakhtVaset.Client
 
                 Trace.TraceInformation("Checking payment link status for token '{0}'", nextPaymentLink.Token);
                 var result = PayRequestService.Check(Options.ApiKey, Options.Password, nextPaymentLink.Token);
+                
+                var e = new PaymentLinkChangedEventArgs();
+                e.Success = result.Success;
+                e.Message = result.Message;
+                e.Token = nextPaymentLink.Token;
+                e.FollowId = nextPaymentLink.FollowId;
+                e.Status = result.RequestStatus;
+                e.ResultDate = result.VerifyDate;
 
                 if (result.Success)
                 {
                     Trace.TraceInformation("IPayRequest.Check called successfully.");
-
-                    var e = new PaymentLinkChangedEventArgs();
-                    e.Token = nextPaymentLink.Token;
-                    e.FollowId = nextPaymentLink.FollowId;
-                    e.Status = result.RequestStatus;
-                    e.ResultDate = result.VerifyDate;
-
-                    OnPaymentLinkChanged(e);
-
-                    if (e.Handled)
-                    {
-                        nextPaymentLink.PaymentStatus = (int)result.RequestStatus;
-                        nextPaymentLink.BankReferenceId = result.BankReferenceId;
-                        nextPaymentLink.ResultDate = result.VerifyDate;
-                        nextPaymentLink.LastCheckForUpdateDate = DateTime.Now;
-                        PaymentLinkRepository.Update(nextPaymentLink);
-                    }
                 }
                 else
                 {
                     Trace.TraceError("IPayRequest.Check call was not successful. Error Type: {0}, Server Message: '{1}'", result.ExceptionType, result.Message);
+                }
+
+                OnPaymentLinkChanged(e);
+                if (e.Handled)
+                {
+                    nextPaymentLink.PaymentStatus = (int)result.RequestStatus;
+                    nextPaymentLink.BankReferenceId = result.BankReferenceId;
+                    nextPaymentLink.ResultDate = result.VerifyDate;
+                    nextPaymentLink.LastCheckForUpdateDate = DateTime.Now;
+                    PaymentLinkRepository.Update(nextPaymentLink);
                 }
             }
             catch (Exception ex)

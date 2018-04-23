@@ -15,5 +15,7 @@ namespace Septa.PardakhtVaset.Client
         bool Test(string apiKey);
 
         PaymentLink Create(decimal amount, string followId, string invoiceNumber, DateTime invoiceDate, ushort expireAfterDays, string description);
+
+        PaymentCancelResult Cancel(string token);
     }
 }

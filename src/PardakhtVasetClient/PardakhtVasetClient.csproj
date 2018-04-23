@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="IPaymentLinkNotificationService.cs" />
     <Compile Include="IPayRequestFactory.cs" />
+    <Compile Include="PaymentCancelResult.cs" />
     <Compile Include="PaymentLinkChangedEventArgs.cs" />
     <Compile Include="PaymentLinkNotificationService.cs" />
     <Compile Include="PayRequestFactory.cs" />

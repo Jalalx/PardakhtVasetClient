@@ -118,5 +118,11 @@ namespace Septa.PardakhtVaset.Client
                 _isDisposed = true;
             }
         }
+
+        public PaymentCancelResult Cancel(string token)
+        {
+            var result = PayRequestFactory.CreateV2().CancelPayment(Options.ApiKey, Options.Password, token);
+            return new PaymentCancelResult { Success = result.Success, Message = result.Message };
+        }
     }
 }

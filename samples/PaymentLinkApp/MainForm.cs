@@ -82,5 +82,26 @@ namespace PaymentLinkApp
 
             e.Handled = true;
         }
+
+        private void cancelSelectedPaymentToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (paymentLinksGridView.SelectedRows.Count == 1)
+            {
+                var token = paymentLinksGridView.SelectedRows[0].Cells[11].Value as string;
+                var result = _client.Cancel(token);
+                if (result.Success)
+                {
+                    MessageBox.Show("Payment cancelled successfully.", "Payment cancelled", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show(result.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select only one payment to cancel.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }

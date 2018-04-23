@@ -174,6 +174,7 @@ namespace PardakhtVasetServices
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(PardakhtVasetServices.EPayRequestCheckResult))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(PardakhtVasetServices.CapitalUnblockResult))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(PardakhtVasetServices.CapitalCancelResult))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(PardakhtVasetServices.CancelPaymentResult))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(PardakhtVasetServices.EPayRequestResult))]
     public partial class OperationResult : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -348,7 +349,35 @@ namespace PardakhtVasetServices
             }
         }
     }
-    
+
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name = "CancelPaymentResult", Namespace = "http://schemas.datacontract.org/2004/07/PardakhtVaset.Services.DataContract")]
+    [System.SerializableAttribute()]
+    public partial class CancelPaymentResult : PardakhtVasetServices.OperationResult
+    {
+
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TokenField;
+
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Token
+        {
+            get
+            {
+                return this.TokenField;
+            }
+            set
+            {
+                if ((object.ReferenceEquals(this.TokenField, value) != true))
+                {
+                    this.TokenField = value;
+                    this.RaisePropertyChanged("Token");
+                }
+            }
+        }
+    }
+
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="EPayRequestResult", Namespace="http://schemas.datacontract.org/2004/07/PardakhtVaset.Services.DataContract")]

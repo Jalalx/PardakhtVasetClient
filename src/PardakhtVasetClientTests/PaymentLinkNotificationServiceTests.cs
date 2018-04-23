@@ -141,7 +141,7 @@ namespace PardakhtVasetClientTests
             mockedRepository.Verify(x => x.GetNextLinkForCheck(It.IsAny<string>()), Times.Once());
             mockedPayRequest.Verify(x => x.Check(options.ApiKey, options.Password, nextPaymentLink.Token), Times.Once());
             mockedRepository.Verify(x => x.Update(nextPaymentLink), Times.Never());
-            Assert.False(paymentLinkEventCalled);
+            Assert.True(paymentLinkEventCalled);
         }
 
     }

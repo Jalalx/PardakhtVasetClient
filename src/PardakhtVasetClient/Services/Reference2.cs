@@ -22,6 +22,9 @@
 
         [System.ServiceModel.OperationContractAttribute(Action = "http://tempuri.org/IPayRequestV2/CancelAmount", ReplyAction = "http://tempuri.org/IPayRequestV2/CancelAmountResponse")]
         PardakhtVasetServices.CapitalCancelResult CancelAmount(string dividerApiKey, string dividerPassword, string apiKey, decimal amount, decimal dividerAmount, string shebaNO, string description, string followId);
+
+        [System.ServiceModel.OperationContractAttribute(Action = "http://tempuri.org/IPayRequestV2/CancelPayment", ReplyAction = "http://tempuri.org/IPayRequestV2/CancelPaymentResponse")]
+        PardakhtVasetServices.CancelPaymentResult CancelPayment(string apiKey, string password, string token);
     }
 
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -86,6 +89,11 @@
         public PardakhtVasetServices.CapitalCancelResult CancelAmount(string dividerApiKey, string dividerPassword, string apiKey, decimal amount, decimal dividerAmount, string shebaNO, string description, string followId)
         {
             return base.Channel.CancelAmount(dividerApiKey, dividerPassword, apiKey, amount, dividerAmount, shebaNO, description, followId);
+        }
+
+        public PardakhtVasetServices.CancelPaymentResult CancelPayment(string apiKey, string password, string token)
+        {
+            return base.Channel.CancelPayment(apiKey, password, token);
         }
     }
 }
